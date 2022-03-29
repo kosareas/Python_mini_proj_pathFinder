@@ -3,7 +3,7 @@ from curses import wrapper
 import queue
 import time
 
-
+#maze pattern
 maze = [
     ["#", "O", "#", "#", "#", "#", "#", "#", "#"],
     ["#", " ", " ", " ", " ", " ", " ", " ", "#"],
@@ -15,7 +15,7 @@ maze = [
     ["#", " ", " ", " ", " ", " ", " ", " ", "#"],
     ["#", "#", "#", "#", "#", "#", "#", "X", "#"]
 ]
-
+#To print maze pattern
 def print_maze(maze,stdscr,path=[]):
 	
 	BLUE = curses.color_pair(1)
@@ -27,6 +27,7 @@ def print_maze(maze,stdscr,path=[]):
 				stdscr.addstr(i,j*2,"X",RED)
 			else:
 				stdscr.addstr(i,j*2,value,BLUE)
+#To find the start of the maze 				
 def find_start(maze,start):
 	for i,row in enumerate(maze):
 	 	for j,value in enumerate(row):
@@ -34,7 +35,7 @@ def find_start(maze,start):
 				return i,j
 	return None
 
-
+#to find the shortest path
 def find_path(maze,stdscr):
 	start ='O'
 	stop = 'X'
@@ -71,7 +72,7 @@ def find_path(maze,stdscr):
 			new_path = path +[neighbor]
 			q.put((neighbor,new_path))
 			visited.add(neighbor)
-
+#as per BFS algorithm we should neighbors
 def find_neighbors(maze,row,col):
 	neighbors =[]
 	
@@ -86,7 +87,7 @@ def find_neighbors(maze,row,col):
 		neighbors.append((row,col+1))
 	
 	return neighbors
-
+#to move curser on screen
 def main(stdscr):
   curses.init_pair(1,curses.COLOR_WHITE,curses.COLOR_BLACK)
   curses.init_pair(2,curses.COLOR_RED,curses.COLOR_BLACK)
